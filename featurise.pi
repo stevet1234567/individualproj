@@ -1,0 +1,85 @@
+### General imports ###
+import warnings
+import numpy as np
+import pandas as pd
+import sqlite3
+import os
+from tqdm import tqdm
+import csv
+from pymongo import MongoClient
+import re
+import json
+from itertools import zip_longest, combinations
+import multiprocessing
+import scipy.stats as stats
+import pylab as pl
+
+### Matplotlib ###
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+mpl.style.use('ggplot')
+mpl.rcParams['text.usetex'] = True
+mpl.rcParams['text.latex.preamble'] = [r' \boldmath']
+mpl.rc('font', **{ 'family' : 'serif', 'serif' : 'Times New Roman', 'weight': 'bold'})
+mpl.rc('lines', **{ 'linewidth' : 4.0 })
+mpl.rcParams['figure.figsize'] = (12,10)
+mpl.rcParams["font.size"] = "24"
+clrs = ['#254654','#219e8f', '#eac563', '#f6a25a', '#e96f4c']
+mpl.rcParams['text.color'] = '#565555'
+mpl.rcParams['axes.labelcolor'] = '#565555'
+mpl.rcParams['axes.labelweight'] = 'bold'
+mpl.rcParams['xtick.color'] = '#565555'
+mpl.rcParams['ytick.color'] = '#565555'
+mpl.rc('lines', **{ 'linewidth' : 4.0 })
+mpl.rc('mathtext', **{ 'fontset' : 'custom', 'rm' : 'Times New Roman', 
+                      'it' : 'Times New Roman:italic', 'bf' : 'Times New Roman:bold' })
+
+### Pymatgen imports ###
+from pymatgen import Composition, Structure, Specie
+from pymatgen import MPRester
+from matminer.data_retrieval.retrieve_MP import MPDataRetrieval
+from matminer.featurizers import composition as cf
+from matminer.utils.conversions import str_to_composition
+from matminer.featurizers.base import MultipleFeaturizer
+
+### Sklearn imports ###
+from sklearn import ensemble
+from sklearn.linear_model import LinearRegression,Ridge
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.model_selection import cross_val_predict
+
+### SMACT imports ###
+import smact
+
+### Filter warnings messages from the notebook ###
+warnings.filterwarnings('ignore')
+
+### Set pandas view options ###
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+
+### Set up MP API ###
+API_key = os.environ.get('MP_API_KEY') # Requires API key to be set up as environment variable
+mpr = MPDataRetrieval(API_key) # You can just put your MP API key in here 
+m = MPRester(API_key) # And here
+
+conn = sqlite3.connect('/home/stowers/individualproj/data.db')
+c = conn.cursor()
+c.execute("SELECT * FROM data123")
+rows = c.fetchall()
+
+compositions, structures = [], []
+for row in rows:
+    composition = row[0]
+    structure = int(row[1])
+    compositions.append(composition)
+    structures.append(structure)
+    
+materials_data = []
+for i, j in zip(compositions,structures):
+    materials_data.append({'compositions':i, 'structures':j})
+    
+print(materials_data)
