@@ -24,9 +24,9 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 #Open featurised data, set y to the structures column and set x as the features generated
-df = pd.read_csv ('/home/stowers/individualproj/features.csv', index_col=[0])
+df = pd.read_csv ('features.csv', index_col=[0])
 y_matrix = df['structures']
-drop_cols = loadtxt("/home/stowers/individualproj/gradient boosting classifier/drop_cols.txt",dtype = str, delimiter = "\n")
+drop_cols = loadtxt("drop_cols.txt",dtype = str, delimiter = "\n")
 
 #Drop the all columns apart from the first 30 listed in drop_cols.txt
 df.drop(labels=drop_cols[30:], axis=1, inplace=True)
