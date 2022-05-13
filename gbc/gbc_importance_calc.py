@@ -23,7 +23,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 #Open featurised data, set y to the structures column and set x as the features generated
-df = pd.read_csv ('/home/stowers/individualproj/features.csv', index_col=[0])
+df = pd.read_csv ('features.csv', index_col=[0])
 y_matrix = df['structures']
 drop_columns = ["compstrings","structures","composition"]
 df.drop(labels=drop_columns, axis=1, inplace=True)
@@ -48,4 +48,4 @@ for x in range(0,100):
   importancesdf[x+1] = importances
 
 #Save data to csv to be used in excel
-importancesdf.to_csv('/home/stowers/individualproj/gradient boosting classifier/gbc importances.csv')
+importancesdf.to_csv('gbc importances.csv')
