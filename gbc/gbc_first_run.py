@@ -21,7 +21,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 #Open featurised data, set y to the structures column and set x as the features generated
-df = pd.read_csv ('/home/stowers/individualproj/features.csv', index_col=[0])
+df = pd.read_csv ('features.csv', index_col=[0])
 y_matrix = df['structures']
 drop_columns = ["compstrings","structures","composition"]
 df.drop(labels=drop_columns, axis=1, inplace=True)
@@ -40,23 +40,3 @@ gb_clf.fit(X_train, y_train)
 #Output accuracy scores
 print("Accuracy score (training): {0:.3f}".format(gb_clf.score(X_train, y_train)))
 print("Accuracy score (test): {0:.3f}".format(gb_clf.score(X_test, y_test)))
-
-
-
-#import scikitplot as skplt
-#from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
-#import matplotlib.pyplot as plt
-#from sklearn import tree
-#import pydotplus
-
-#y_pred = gb_clf.predict(X_test)
-
-# Create the matrix
-#fig, ax = plt.subplots(figsize=(12, 8))
-#cm = confusion_matrix(y_test, y_pred)
-#cmp = ConfusionMatrixDisplay(cm, display_labels=["fcc","bcc","fcc & bcc","neither"])
-#cmp.plot(ax=ax)
-
-#plt.savefig('/home/stowers/individualproj/gradient boosting classifier/cool3.png')
-
-#X_cols = [c for c in df.columns]
