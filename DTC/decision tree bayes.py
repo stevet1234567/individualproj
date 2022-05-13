@@ -22,11 +22,11 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 #Open featurised data and store in dataframe
-df = pd.read_csv ('/home/stowers/individualproj/features.csv', index_col=[0])
+df = pd.read_csv ('features.csv', index_col=[0])
 y_matrix = df['structures']
 
 #Drop the all columns apart from the first 30 listed in drop_cols.txt
-drop_cols = loadtxt("/home/stowers/individualproj/gradient boosting classifier/drop_cols.txt",dtype = str, delimiter = "\n")
+drop_cols = loadtxt("drop_cols.txt",dtype = str, delimiter = "\n")
 df.drop(labels=drop_cols[30:], axis=1, inplace=True)
 
 #Encode data x values
