@@ -25,11 +25,11 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 #Open featurised data, set y to the structures column and set x as the features generated
-df = pd.read_csv ('/home/stowers/individualproj/features.csv', index_col=[0])
+df = pd.read_csv ('features.csv', index_col=[0])
 y_matrix = df['structures']
 
 #Load txt file containing the feature names in order of importance, with the most important at the top
-drop_cols = loadtxt("/home/stowers/individualproj/gradient boosting classifier/drop_cols.txt",dtype = str, delimiter = "\n")
+drop_cols = loadtxt("drop_cols.txt",dtype = str, delimiter = "\n")
 
 #Create a dataframe to store how accurate the model is with each amount of features
 featureremove = pd.DataFrame(columns = ["feature", "train_avg","test_avg"])
